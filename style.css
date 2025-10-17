@@ -2,7 +2,7 @@
     --color-body: #FDF6EE;
     --color-heading: #FF5F00;
     --color-p: #51512B;
-    --color-secondary: #fff;
+    --color-secondary: #ffc0c0;
     --color-btn-primary: #FF5F00;
     --color-btn-secondary: #257886;
 }
@@ -14,10 +14,13 @@ body {
 header {
     background-color: var(--color-secondary);
 }
+
 .container {
+    background-color: var(--color-secondary);
     max-width: 1280px;
     margin: 0 auto;
     margin-bottom: 32px;
+    border-radius: 16px;
 }
 
 .nav {
@@ -48,19 +51,20 @@ a {
     text-decoration: none;
 }
 
-.section{
+.section {
     background-color: var(--color-secondary);
     padding: 24px;
+    border-radius: 16px;
 }
 
-h1{
+h1 {
     font-size: 48px;
     font-family: "roboto", sans-serif;
     font-weight: 900;
     color: var(--color-heading);
 }
 
-p{
+p {
     font-size: 14px;
     font-family: "roboto", sans-serif;
     color: var(--color-p);
@@ -73,7 +77,7 @@ ul {
     gap: 1.5rem;
 }
 
-.btn-primary{
+.btn-primary {
     border: none;
     font-size: 19px;
     font-family: "roboto", sans-serif;
@@ -85,12 +89,49 @@ ul {
     cursor: pointer;
 }
 
-.btn-secondary{
+.btn-secondary {
     border: none;
     font-size: 16px;
     font-family: "roboto", sans-serif;
     font-weight: bold;
     color: var(--color-btn-secondary);
-    background-color: #fff;
+    background-color: #ffffff00;
+    cursor: pointer;
+}
 
+.btn-secondary:hover {
+    text-decoration: underline;
+}
+
+.heading {
+    display: flex;
+    position: relative;
+    max-width: 100%;
+    padding: 0px 24px;
+    justify-content: center;
+}
+
+h2{
+    font-size: 32px;
+    font-family: "roboto", sans-serif;
+    font-weight: 900;
+    color: var(--color-heading);
+    margin-bottom: 24px;
+}
+
+#section-1 {
+
+    display: flex;
+    position: relative;
+    gap: 24px;
+    padding:0px 24px 24px;
+
+}
+
+.article {
+    flex: 1;
+}
+
+img{
+    border-radius: 16px;
 }
