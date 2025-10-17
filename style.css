@@ -3,7 +3,8 @@
     --color-heading: #FF5F00;
     --color-p: #51512B;
     --color-secondary: #fff;
-    --color-button: #FF5F00;
+    --color-btn-primary: #FF5F00;
+    --color-btn-secondary: #257886;
 }
 
 body {
@@ -16,6 +17,7 @@ header {
 .container {
     max-width: 1280px;
     margin: 0 auto;
+    margin-bottom: 32px;
 }
 
 .nav {
@@ -23,7 +25,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 15px 15px;
-    margin-bottom: 3rem;
+    margin-bottom: 32px;
     position: relative;
     max-width: 100%;
     z-index: 10;
@@ -44,4 +46,51 @@ a {
     font-family: "Roboto", sans-serif;
     color: var(--color-p);
     text-decoration: none;
+}
+
+.section{
+    background-color: var(--color-secondary);
+    padding: 24px;
+}
+
+h1{
+    font-size: 48px;
+    font-family: "roboto", sans-serif;
+    font-weight: 900;
+    color: var(--color-heading);
+}
+
+p{
+    font-size: 14px;
+    font-family: "roboto", sans-serif;
+    color: var(--color-p);
+    margin: 24px 0px;
+}
+
+ul {
+    padding: 0%;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.btn-primary{
+    border: none;
+    font-size: 19px;
+    font-family: "roboto", sans-serif;
+    font-weight: bold;
+    color: #fff;
+    background-color: var(--color-btn-primary);
+    padding: 13px 24px 11px;
+    border-radius: 23px;
+    cursor: pointer;
+}
+
+.btn-secondary{
+    border: none;
+    font-size: 16px;
+    font-family: "roboto", sans-serif;
+    font-weight: bold;
+    color: var(--color-btn-secondary);
+    background-color: #fff;
+
 }
