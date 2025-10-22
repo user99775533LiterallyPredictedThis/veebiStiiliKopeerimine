@@ -135,3 +135,23 @@ h2{
 img{
     border-radius: 16px;
 }
+
+#section-2 {
+    margin-bottom: 24px;
+}
+
+#section-3 {
+    display: flex;
+    position:relative;
+    padding:0px 24px 24px;
+    margin: 24px 0px;
+    text-align: center;
+}
+
+#footer {
+    text-align: center;
+    margin: 24px;
+    background-color: var(--color-body);
+    border-top: var(--color-heading) 10px;
+    padding: 60px
+}
