@@ -83,6 +83,59 @@
             </div>
         </div>
     </div>
+
+
+    <div class="container">
+        <form>
+            <h1>Founder application form</h1>
+
+            <legend>Full name</legend>
+            <input type="text">
+
+            <legend>Gender</legend>
+            <div>
+                <input type="radio" id="Female" name="drone" value="Female" checked />
+                <label for="Female">Female</label>
+            </div>
+
+            <div>
+                <input type="radio" id="Male" name="drone" value="Male" />
+                <label for="Male">Male</label>
+            </div>
+
+            <div>
+                <input type="radio" id="Other" name="drone" value="Other" />
+                <label for="Other">Other</label>
+            </div>
+
+            <legend for="email">Enter your email:</legend>
+            <input type="email" id="email" pattern=".+@example\.com" size="30" required />
+
+            <legend for="phone">
+                Enter your phone number:<br />
+            </legend>
+            <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required />
+
+            <legend for="tentacles">Your age</legend>
+            <input type="number" id="tentacles" name="tentacles" min="18" max="100" />
+
+            <legend for="story">Tell us about yourself</legend>
+            <textarea id="story" name="story" rows="5" cols="33"></textarea>
+
+            <div>
+                <input type="checkbox" id="ToS" name="ToS" required />
+                <label for="scales">I have read and agree to the Terms of Service</label>
+            </div>
+            <div>
+                <input type="checkbox" id="newsletters" name="newsletters" />
+                <label for="horns">I'd like to receive newsletters</label>
+            </div>
+
+            <a href="https://c.tenor.com/n4DU0ltAhaAAAAAC/tenor.gif"><input class="btn-primary" type="button"
+                    value="Click meee I'm clickable" /></a>
+        </form>
+    </div>
+
     <div class="footer">
         <footer>
             <p>© 2023 High Alpha. All rights reserved.</p>
