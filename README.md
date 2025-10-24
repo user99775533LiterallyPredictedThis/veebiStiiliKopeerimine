@@ -1,2 +1,3 @@
 - links react to hover
 - clickable logo
+- pc and mobile compatibility (i hope)
