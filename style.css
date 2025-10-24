@@ -130,7 +130,6 @@ h3 {
 #section-1 {
 
     display: flex;
-    position: relative;
     gap: 24px;
     padding: 0px 24px 24px;
 
@@ -158,14 +157,28 @@ img {
 
 footer {
     box-shadow: 0 -8px 0 var(--color-heading);
-    width: 100%;
     text-align: center;
     background-color: var(--color-body);
     border-top: var(--color-heading) 10px;
     padding: 60px
 }
 
-img{
+img {
     max-width: 100%;
     height: auto;
+}
+
+@media screen and (max-width: 768px) {
+
+body {
+    margin-left:32px;
+    margin-right: 32px;
+}
+  #section-1 {
+    flex-direction: column;
+  }
+
+  #section-3 {
+    flex-direction: column;
+  }
 }
