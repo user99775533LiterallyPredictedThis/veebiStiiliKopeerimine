@@ -1,0 +1,2 @@
+- links react to hover
+- clickable logo
