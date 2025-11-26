@@ -10,6 +10,142 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+
+    <style>
+    /* --- Brändi põhivärvid (muuda enda omadeks) --- */
+    :root {
+      --brand-bg: #FF5F00;        /* lehe taust */
+      --brand-card-bg: #ffffff;   /* kaardi ploki taust */
+      --brand-accent: #FF5F00;    /* põhivärv / accent */
+      --brand-text: #51512B;      /* tekst */
+      --brand-muted: #51512B;     /* sekundaarne tekst */
+      --brand-border: #FF5F00;    /* ääris */
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+
+    /* --- Kaardiplokk (card) --- */
+    .map-card {
+      width: 100%;
+      max-width: 1280px;
+      background: var(--brand-card-bg);
+      border-radius: 18px;
+      padding: 20px 22px 22px;
+      display: flex;
+      margin: auto;
+      flex-direction:column;
+      gap: 14px;
+    }
+
+    .map-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .map-card-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .map-card-sub {
+      font-size: 0.85rem;
+      color: var(--brand-muted);
+    }
+
+    .map-card-tag {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      font-size: 0.75rem;
+      color: var(--brand-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+
+    /* --- Kaardi konteiner --- */
+    .map-wrapper {
+      border-radius: 14px;
+      overflow: hidden; /* et kaart järgiks ümardatud nurki */
+      background: #020617;
+      position: relative;
+    }
+
+    /* tegelik Leafleti kaart */
+    #map {
+      width: 100%;
+      height: 320px; /* desktop kõrgus */
+    }
+
+    /* --- Leafleti plaatide (tile) toonimine brändi järgi --- */
+    .leaflet-tile {
+      /* mängi nende väärtustega, et kaart sobiks sinu värvipaletiga */
+      filter:
+        hue-rotate(10deg)  /* muudab põhitonaalsust */
+        saturate(1.25)      /* rohkem/ vähem värviküllastust */
+        brightness(1.00);   /* tumedam heledam taust */
+    }
+
+    /* popup sobima tumeda teemaga */
+    .leaflet-popup-content-wrapper {
+      background: #ffffff;
+      color: var(--brand-text);
+      border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    .leaflet-popup-tip {
+      background: #020617;
+      border-top: 1px solid rgba(148, 163, 184, 0.3);
+      border-left: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    .leaflet-popup-content {
+      margin: 10px 12px;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+
+    .popup-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--brand-accent);
+      font-size: 0.9rem;
+    }
+
+    /* --- Mobiili jaoks --- */
+    @media (max-width: 600px) {
+      body {
+        padding: 16px;
+      }
+
+      .map-card {
+        padding: 16px;
+        border-radius: 16px;
+      }
+
+      #map {
+        height: 220px; /* madalam, et mitte pool ekraani täita */
+      }
+
+      .map-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -84,6 +220,17 @@
         </div>
     </div>
 
+      <section class="map-card">
+ 
+
+    <div class="map-wrapper">
+      <!-- Leafleti kaart -->
+      <div id="map"></div>
+    </div>
+  </section>
+
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+
 
     <div class="container">
         <form>
@@ -141,6 +288,56 @@
             <p>© 2023 High Alpha. All rights reserved.</p>
         </footer>
     </div>
+
+    <script>
+    // --- Kaardi initsialiseerimine ---
+    document.addEventListener("DOMContentLoaded", function () {
+      // Valitud keskpunkt (Tallinn, saad asendada enda koordinaatidega OpenStreetMapist)
+      const centerLat = 59.42766;
+      const centerLng =  24.74705;
+
+      // Loo kaart ja sea vaade
+      const map = L.map("map").setView([centerLat, centerLng], 14);
+
+      // Lisa OpenStreetMap plaadikiht
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> kaasautorid'
+      }).addTo(map);
+
+      // Võta brändi accent värv CSS-ist
+      const brandAccent = getComputedStyle(document.documentElement)
+        .getPropertyValue("--brand-accent")
+        .trim() || "#38bdf8";
+
+      // --- Brändivärviga marker (circleMarker) ---
+      const marker = L.circleMarker([centerLat, centerLng], {
+        radius: 10,
+        color: "transparent",     // kontuur
+        fillColor: brandAccent,   // täitevärv = brändi accent
+        fillOpacity: 0.98
+      }).addTo(map);
+
+      // --- Popup tekst, mis sobib su lehe sisuga ---
+      const popupHtml = `
+        <div>
+          <div class="popup-title">Swedbank</div>
+          <div>Liivalaia · Tallinn</div>
+          <div>Pakume head nõu, teenuseid ja tooteid ning aitame paljudel inimestel ja ettevõtetel luua paremat tulevikku.</div>
+        </div>
+      `;
+
+      marker.bindPopup(popupHtml);
+
+      // Soovi korral avame popupi vaikimisi
+      marker.openPopup();
+    });
+  </script>
+     <!-- Make sure you put this AFTER Leaflet's CSS -->
+ <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
 </body>
 
 </html>
